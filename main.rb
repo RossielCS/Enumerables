@@ -29,15 +29,38 @@ module Enumerable
     result
   end
 
-  def my_all?
+  def my_all?(a = 0)
     unless block_given?
-      my_each { |i| return false if i.nil? || i == false }
+      if a.class == Class
+        my_each { |x| return false unless x.is_a? a }
+      elsif a.class == Regexp
+        my_each { |x| return false unless a.match?(x.to_s) }
+      elsif [nil, false].include?(a)
+        my_each { |x| return false unless x == a }
+      else
+        return !empty?
+      end
       return true
     end
+    my_each { |i| return false unless yield(i) }
+    true
+  end
 
-    count = 0
-    my_each { |i| count += 1 if yield(i) }
-    count == length
+  def my_any?(a = 0)
+    unless block_given?
+      if a.class == Class
+        my_each { |x| return true if x.is_a? a }
+      elsif a.class == Regexp
+        my_each { |x| return true if a.match?(x.to_s) }
+      elsif [nil, false].include?(a)
+        my_each { |x| return true if x == a }
+      else
+        return !empty?
+      end
+      return false
+    end
+    my_each { |i| return true if yield(i) }
+    false
   end
 end
 
@@ -48,3 +71,7 @@ end
 # [6, 9, 47, 59, 86, 11, 30].my_select { |x| (x % 3).zero? }
 
 # puts(%w[a abc hello names dialog telephone bo].my_all? { |x| x.length >= 1 })
+
+# print [3, 2i, 5.6].my_all?(String)
+
+# print([nil, 55, 'hi'].my_any?{ |x| x.is_a? Numeric })
