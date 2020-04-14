@@ -29,16 +29,16 @@ module Enumerable
     result
   end
 
-  def my_all?(a = 0)
+  def my_all?(arg = 0)
     unless block_given?
-      if a.class == Class
-        my_each { |x| return false unless x.is_a? a }
-      elsif a.class == Regexp
-        my_each { |x| return false unless a.match?(x.to_s) }
-      elsif [nil, false].include?(a)
-        my_each { |x| return false unless x == a }
+      if arg.class == Class
+        my_each { |x| return false unless x.is_a? arg }
+      elsif arg.class == Regexp
+        my_each { |x| return false unless arg.match?(x.to_s) }
+      elsif [nil, false].include?(arg)
+        my_each { |x| return false unless x == arg }
       else
-        return !empty?
+        return empty?
       end
       return true
     end
@@ -46,14 +46,14 @@ module Enumerable
     true
   end
 
-  def my_any?(a = 0)
+  def my_any?(arg = 0)
     unless block_given?
-      if a.class == Class
-        my_each { |x| return true if x.is_a? a }
-      elsif a.class == Regexp
-        my_each { |x| return true if a.match?(x.to_s) }
-      elsif [nil, false].include?(a)
-        my_each { |x| return true if x == a }
+      if arg.class == Class
+        my_each { |x| return true if x.is_a? arg }
+      elsif arg.class == Regexp
+        my_each { |x| return true if arg.match?(x.to_s) }
+      elsif [nil, false].include?(arg)
+        my_each { |x| return true if x == arg }
       else
         return !empty?
       end
@@ -61,6 +61,21 @@ module Enumerable
     end
     my_each { |i| return true if yield(i) }
     false
+  end
+
+  def my_none?(arg = 0)
+    unless block_given?
+      if arg.class == Regexp
+        my_each { |x| return false if arg.match?(x.to_s) }
+      elsif arg.class == Class
+        my_each { |x| return false if x.is_a? arg }
+      else
+        my_each { |x| return false if x }
+      end
+      return true
+    end
+    my_each { |i| return false if yield(i) }
+    true
   end
 end
 
@@ -75,3 +90,7 @@ end
 # print [3, 2i, 5.6].my_all?(String)
 
 # print([nil, 55, 'hi'].my_any?{ |x| x.is_a? Numeric })
+
+# [nil, false, true].my_none?
+
+# [1, 2, 4, 2].count{ |x| x.even? }
