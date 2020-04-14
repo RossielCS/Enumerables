@@ -77,6 +77,25 @@ module Enumerable
     my_each { |i| return false if yield(i) }
     true
   end
+
+  def my_count(arg = 0)
+    count = 0
+    unless block_given?
+      if include?(arg)
+        my_each { |x| count += 1 if x == arg }
+        return count
+      end
+      return arg.length
+    end
+    my_each { |i| count += 1 if yield(i) }
+    count
+  end
+
+  def my_map
+    result = []
+    to_a.my_each_with_index { |_, y| result << yield(to_a[y]) }
+    result
+  end
 end
 
 # [11, 79, 15, 43, 38, 1].my_each { |items| puts items * 2 }
@@ -94,3 +113,6 @@ end
 # [nil, false, true].my_none?
 
 # [1, 2, 4, 2].count{ |x| x.even? }
+
+# print((1..4).my_map { |x| x * x })
+
