@@ -1,4 +1,6 @@
 module Enumerable
+  UNDEFINED = Object.new
+
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -29,59 +31,43 @@ module Enumerable
     result
   end
 
-  def my_all?(arg = 0)
+  def my_all?(arg = UNDEFINED)
     unless block_given?
-      if arg.class == Class
-        my_each { |x| return false unless x.is_a? arg }
-      elsif arg.class == Regexp
-        my_each { |x| return false unless arg.match?(x.to_s) }
-      elsif [nil, false].include?(arg)
-        my_each { |x| return false unless x == arg }
-      else
-        return empty?
-      end
+      my_each { |x| return false unless x.is_a? arg } if arg.is_a? Class
+      my_each { |x| return false unless arg.match?(x.to_s) } if arg.class == Regexp
+      my_each { |x| return false unless x == arg } if arg == UNDEFINED
       return true
     end
     my_each { |i| return false unless yield(i) }
     true
   end
 
-  def my_any?(arg = 0)
+  def my_any?(arg = UNDEFINED)
     unless block_given?
-      if arg.class == Class
-        my_each { |x| return true if x.is_a? arg }
-      elsif arg.class == Regexp
-        my_each { |x| return true if arg.match?(x.to_s) }
-      elsif [nil, false].include?(arg)
-        my_each { |x| return true if x == arg }
-      else
-        return !empty?
-      end
+      my_each { |x| return true if x.is_a? arg } if arg.is_a? Class
+      my_each { |x| return true if arg.match?(x.to_s) } if arg.class == Regexp
+      my_each { |x| return true if x } if arg == UNDEFINED
       return false
     end
     my_each { |i| return true if yield(i) }
     false
   end
 
-  def my_none?(arg = 0)
+  def my_none?(arg = UNDEFINED)
     unless block_given?
-      if arg.class == Regexp
-        my_each { |x| return false if arg.match?(x.to_s) }
-      elsif arg.class == Class
-        my_each { |x| return false if x.is_a? arg }
-      else
-        my_each { |x| return false if x }
-      end
+      my_each { |x| return false if x.is_a? arg } if arg.is_a? Class
+      my_each { |x| return false if arg.match?(x.to_s) } if arg.class == Regexp
+      my_each { |x| return false if x } if arg == UNDEFINED
       return true
     end
     my_each { |i| return false if yield(i) }
     true
   end
 
-  def my_count(arg = 0)
+  def my_count(arg = UNDEFINED)
     count = 0
     unless block_given?
-      if include?(arg)
+      if arg
         my_each { |x| count += 1 if x == arg }
         return count
       end
@@ -95,6 +81,22 @@ module Enumerable
     result = []
     to_a.my_each_with_index { |_, y| result << yield(to_a[y]) }
     result
+  end
+
+  def my_inject(arg = UNDEFINED)
+    new_arr = to_a
+    accumulator = new_arr.shift
+    unless arg == UNDEFINED
+      accumulator = arg
+      to_a.my_each { |x| accumulator = yield(accumulator, x) }
+      return accumulator
+    end
+    new_arr.my_each { |x| accumulator = yield(accumulator, x) }
+    accumulator
+  end
+
+  def multiply_els
+    my_inject { |x, y| x * y }
   end
 end
 
@@ -116,3 +118,4 @@ end
 
 # print((1..4).my_map { |x| x * x })
 
+# (5..10).my_inject(2) { |product, n| product * n }
