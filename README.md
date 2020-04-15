@@ -1,50 +1,39 @@
 # Enumerables
-> In this project, I will implement my own version of Ruby’s enumerable methods.
+> In this project, I implemented my version of Ruby’s enumerable methods.
+I created a script file and added the new methods onto the existing Enumerable module.
+
+The project requirements are [here](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks#project-2-enumerable-methods).
 
 ![screenshot](./app_screenshot.png)
 
-Additional description about the project and its features.
-
 ## Built With
 
-- Major languages,
-- frameworks,
-- technologies used
+- Ruby 2.6.5p114,
+- Visual Studio Code 1.43.2
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://repl.it/@RossielCarranza/Enumerables)
 
 
 ## Getting Started
-
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
 
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-### Setup
-
-### Install
-
-### Usage
-
-### Run tests
-
-### Deployment
+- OS: MacOS, Ubuntu or a Virtual Machine,
+- Code editor,
+- Have Ruby installed
 
 
+## Author
 
-## Authors
+👤 **Rossiel Carranza**
 
-👤 **Author1**
+- Github: [@RossielCS](https://github.com/RossielCS)
+- Linkedin: [Rossiel Carranza](https://www.linkedin.com/in/rossiel-carranza-1666b11a1/)
 
-- Github: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- Linkedin: [linkedin](https://linkedin.com/linkedinhandle)
 
 ## 🤝 Contributing
 
