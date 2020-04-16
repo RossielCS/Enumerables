@@ -4,7 +4,7 @@ I created a script file and added the new methods onto the existing Enumerable m
 
 The project requirements are [here](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks#project-2-enumerable-methods).
 
-![screenshot](./app_screenshot.png)
+![screenshot](https://user-images.githubusercontent.com/60085697/79482990-fe5e7e80-7fe7-11ea-9f65-ef567709c370.png))
 
 ## Built With
 
@@ -17,14 +17,11 @@ The project requirements are [here](https://www.theodinproject.com/courses/ruby-
 
 
 ## Getting Started
-
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
 - OS: MacOS, Ubuntu or a Virtual Machine,
 - Code editor,
-- Have Ruby installed
+- Ruby
 
 
 ## Author
