@@ -1,8 +1,8 @@
 # Enumerables
 > In this project, I implemented my version of Ruby’s enumerable methods.
-I created a script file and added the new methods onto the existing Enumerable module.
-
+I created a script file and added the new methods into the existing Enumerable module.
 The project requirements are [here](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks#project-2-enumerable-methods).
+
 
 ![screenshot](https://user-images.githubusercontent.com/60085697/79482990-fe5e7e80-7fe7-11ea-9f65-ef567709c370.png))
 
