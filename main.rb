@@ -73,28 +73,34 @@ module Enumerable
   def my_count(arg = UNDEFINED)
     count = 0
     unless block_given?
-      if arg
+      if arg != UNDEFINED
         my_each { |x| count += 1 if x == arg }
         return count
       end
-      return arg.length
+      return length
     end
     my_each { |i| count += 1 if yield(i) }
     count
   end
 
   def my_map
+    return to_enum(:my_map) unless block_given?
+
     result = []
     to_a.my_each_with_index { |_, y| result << yield(to_a[y]) }
     result
   end
 
-  def my_inject(arg = UNDEFINED)
+  def my_inject(*arg)
     new_arr = to_a
     accumulator = new_arr.shift
-    unless arg == UNDEFINED
-      accumulator = arg
-      to_a.my_each { |x| accumulator = yield(accumulator, x) }
+    unless block_given?
+      if arg[0].class == Symbol
+        new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x) }
+      elsif arg[1].class == Symbol
+        accumulator = arg[0]
+        to_a.my_each { |x| accumulator = accumulator.send(arg[1], x) }
+      end
       return accumulator
     end
     new_arr.my_each { |x| accumulator = yield(accumulator, x) }
@@ -102,6 +108,6 @@ module Enumerable
   end
 
   def multiply_els
-    my_inject { |x, y| x * y }
+    my_inject(:*)
   end
 end

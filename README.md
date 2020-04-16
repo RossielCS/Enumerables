@@ -4,7 +4,7 @@ I created a script file and added the new methods into the existing Enumerable m
 The project requirements are [here](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks#project-2-enumerable-methods).
 
 
-![screenshot](https://user-images.githubusercontent.com/60085697/79482990-fe5e7e80-7fe7-11ea-9f65-ef567709c370.png))
+![screenshot](https://user-images.githubusercontent.com/60085697/79511014-d5a0ae00-8014-11ea-9e8d-c0aae2c5c621.png)
 
 ## Built With
 
