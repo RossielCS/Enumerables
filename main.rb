@@ -92,18 +92,18 @@ module Enumerable
   end
 
   def my_inject(*arg)
+    new_arr = to_a
     accumulator = arg[0]
     if arg[0].class == Symbol
-      new_arr = to_a
       accumulator = new_arr.shift
-      new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x) }
+      new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x)}
     elsif arg[0].class < Numeric && arg[1].class != Symbol
-      to_a.my_each { |x| accumulator = yield(accumulator, x) }
+      new_arr.my_each { |x| accumulator = yield(accumulator, x) }
     elsif arg[0].class < Numeric && arg[1].class == Symbol
-      to_a.my_each { |x| accumulator = accumulator.send(arg[1], x) }
+      new_arr.my_each { |x| accumulator = accumulator.send(arg[1], x) }
     else
-      accumulator = to_a.shift
-      to_a.my_each { |x| accumulator = yield(accumulator, x) }
+      accumulator = new_arr.shift
+      new_arr.my_each { |x| accumulator = yield(accumulator, x) }
     end
     accumulator
   end
