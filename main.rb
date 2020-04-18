@@ -96,7 +96,7 @@ module Enumerable
     accumulator = arg[0]
     if arg[0].class == Symbol
       accumulator = new_arr.shift
-      new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x)}
+      new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x) }
     elsif arg[0].class < Numeric && arg[1].class != Symbol
       new_arr.my_each { |x| accumulator = yield(accumulator, x) }
     elsif arg[0].class < Numeric && arg[1].class == Symbol
