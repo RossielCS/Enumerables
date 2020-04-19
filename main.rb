@@ -44,7 +44,7 @@ module Enumerable
     true
   end
 
-  def my_any?(arg = UNDEFINED)
+  def my_any?(arg = UNDEFINED, &block)
     unless block_given?
       if arg != UNDEFINED
         my_each { |x| return true if arg === x }
@@ -53,21 +53,12 @@ module Enumerable
       end
       return false
     end
-    my_each { |i| return true if yield(i) }
+    my_each { |i| return true if block.call(i) }
     false
   end
 
-  def my_none?(arg = UNDEFINED)
-    unless block_given?
-      if arg != UNDEFINED
-        my_each { |x| return false if arg === x }
-      else
-        my_each { |x| return false if x }
-      end
-      return true
-    end
-    my_each { |i| return false if yield(i) }
-    true
+  def my_none?(arg = UNDEFINED, &block)
+    !my_any?(arg, &block)
   end
 
   def my_count(arg = UNDEFINED)
@@ -83,11 +74,16 @@ module Enumerable
     count
   end
 
-  def my_map
+  def my_map(my_proc = UNDEFINED)
     return to_enum(:my_map) unless block_given?
 
     result = []
-    to_a.my_each_with_index { |_, y| result << yield(to_a[y]) }
+    arr = to_a
+    if my_proc == UNDEFINED
+      arr.my_each_with_index { |_, y| result << yield(arr[y]) }
+    else
+      arr.my_each_with_index { |_, y| result << my_proc.call(arr[y]) }
+    end
     result
   end
 
@@ -95,20 +91,22 @@ module Enumerable
     new_arr = to_a
     accumulator = arg[0]
     if arg[0].class == Symbol
-      accumulator = new_arr.shift
+      accumulator = new_arr[0]
+      new_arr = new_arr[1..-1]
       new_arr.my_each { |x| accumulator = accumulator.send(arg[0], x) }
     elsif arg[0].class < Numeric && arg[1].class != Symbol
       new_arr.my_each { |x| accumulator = yield(accumulator, x) }
     elsif arg[0].class < Numeric && arg[1].class == Symbol
       new_arr.my_each { |x| accumulator = accumulator.send(arg[1], x) }
     else
-      accumulator = new_arr.shift
+      accumulator = new_arr[0]
+      new_arr = new_arr[1..-1]
       new_arr.my_each { |x| accumulator = yield(accumulator, x) }
     end
     accumulator
   end
+end
 
-  def multiply_els
-    my_inject(:*)
-  end
+def multiply_els(arg)
+  arg.my_inject(:*)
 end
