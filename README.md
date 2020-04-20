@@ -1,56 +1,62 @@
 # Enumerables
-> In this project, I will implement my own version of Ruby’s enumerable methods.
+> In this project, I implemented my version of Ruby’s enumerable methods.
+I created a script file and added the new methods into the existing Enumerable module.
+The project requirements are [here](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks#project-2-enumerable-methods).
 
-![screenshot](./app_screenshot.png)
 
-Additional description about the project and its features.
+![screenshot](https://user-images.githubusercontent.com/60085697/79680772-db032180-81e9-11ea-98db-2f5eb69c4cf9.png)
 
 ## Built With
 
-- Major languages,
-- frameworks,
-- technologies used
+- Ruby 2.6.5p114,
+- Visual Studio Code 1.43.2,
+- Rubocop,
+- Git
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://repl.it/@RossielCarranza/Enumerables)
 
+## Features
+These are the cloned methods:
+- each,
+- each_with_index,
+- select,
+- all?,
+- any?,
+- none?,
+- count,
+- map,
+- inject
+
+Also, as additional features:
+- multiply_els method to test my_inject,
+- Changed my_map method to take either a proc or a block.
 
 ## Getting Started
-
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
-
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
+- OS: MacOS, Ubuntu or a Virtual Machine,
+- Code editor,
+- Ruby
+
 ### Setup
-
-### Install
-
-### Usage
-
-### Run tests
-
-### Deployment
+Here is a helpful [link](https://www.theodinproject.com/courses/ruby-programming/lessons/installing-ruby-ruby-programming) to The Odin Project with instructions on how to install Ruby Language.
 
 
+## Author
 
-## Authors
+👤 **Rossiel Carranza**
 
-👤 **Author1**
+- Github: [@RossielCS](https://github.com/RossielCS)
+- Linkedin: [Rossiel Carranza](https://www.linkedin.com/in/rossiel-carranza-1666b11a1/)
 
-- Github: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- Linkedin: [linkedin](https://linkedin.com/linkedinhandle)
 
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](issues/).
+Feel free to check the [issues page](https://github.com/RossielCS/Enumerables/issues).
 
 ## Show your support
 
