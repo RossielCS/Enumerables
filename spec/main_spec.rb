@@ -6,6 +6,7 @@ describe Enumerable do
   let(:array_false) { [nil, false] }
   let(:range) { (1..6) }
   let(:string) { 'a string' }
+  let(:process) { Proc.new { |n| n + 2 } }
 
   describe '#my_each' do
     it 'returns an enumerator if the block is not given' do
@@ -108,6 +109,34 @@ describe Enumerable do
 
     it 'returns false if pattern === element is true for an element' do
       expect(array_boolean.my_none?(nil)).to eql(false)
+    end
+  end
+
+  describe '#my_count' do
+    it 'returns total items of an array if block is not given' do
+      expect(array.my_count).to eql(6)
+    end
+
+    it 'returns of characters of a string given like argument' do
+      expect(string.my_count('n')).to eql(1)
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns a Enumerator, unless a block is given' do
+      expect(array.my_map).to be_an_instance_of(Enumerator)
+    end
+
+    it 'returns a new array when block is given' do
+      expect(array.my_map { |n| n * 2 }).to eql([2, 4, 6, 8, 10, 12])
+    end
+
+    it 'returns a new array when a proc is given' do
+      expect(array.my_map(&process)).to eql([3, 4, 5, 6, 7, 8])
+    end
+
+    it 'returns proc output if a proc and block are given' do
+      expect(array.my_map(process) { |n| n * 2 }).to eql([3, 4, 5, 6, 7, 8])
     end
   end
 end
