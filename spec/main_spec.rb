@@ -6,7 +6,7 @@ describe Enumerable do
   let(:array_false) { [nil, false] }
   let(:range) { (1..6) }
   let(:string) { 'a string' }
-  let(:process) { Proc.new { |n| n + 2 } }
+  let(:process) { proc { |n| n + 2 } }
 
   describe '#my_each' do
     it 'returns an enumerator if the block is not given' do
@@ -137,6 +137,24 @@ describe Enumerable do
 
     it 'returns proc output if a proc and block are given' do
       expect(array.my_map(process) { |n| n * 2 }).to eql([3, 4, 5, 6, 7, 8])
+    end
+  end
+
+  describe '#my_inject' do
+    it 'returns the combination of all elements by applying a symbol' do
+      expect(range.my_inject(:+)).to eql(21)
+    end
+
+    it 'returns the combination of initial and all elements by applying a symbol' do
+      expect(range.my_inject(2, :+)).to eql(23)
+    end
+
+    it 'returns the combination of the block passed for the accumulator and each element' do
+      expect(array.my_inject { |x, y| x + y }).to eql(21)
+    end
+
+    it 'returns the combination of the block passed for the initial and and each element' do
+      expect(array.my_inject(2) { |x, y| x + y }).to eql(23)
     end
   end
 end
