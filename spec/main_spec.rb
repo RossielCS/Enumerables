@@ -1,4 +1,4 @@
-require './main'
+require_relative '../main'
 
 describe Enumerable do
   let(:array) { [1, 2, 3, 4, 5, 6] }
