@@ -64,10 +64,15 @@ module Enumerable
   end
 
   def my_count(arg = UNDEFINED)
+    arr = if arg.is_a? String
+            split('')
+          else
+            arg
+          end
     count = 0
     unless block_given?
       if arg != UNDEFINED
-        my_each { |x| count += 1 if x == arg }
+        arr.my_each { |x| count += 1 if x == arg }
         return count
       end
       return length

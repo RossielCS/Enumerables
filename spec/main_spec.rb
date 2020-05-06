@@ -43,16 +43,16 @@ describe Enumerable do
       expect(array.my_all?).to eql(true)
     end
 
-    it 'returns false if an item is false or nil' do
-      expect(array_boolean.my_all?).to eql(false)
+    it 'doesn\'t returns true if an item is false or nil' do
+      expect(array_boolean.my_all?).not_to eql(true)
     end
 
     it 'when block is given, it returns true if all cases are true' do
       expect(array.my_all? { |m| m.is_a? Integer }).to eql(true)
     end
 
-    it 'when block is given, it returns false if at least one case is false' do
-      expect(array.my_all? { |m| m > 1 }).to eql(false)
+    it 'when block is given, it doesn\'t return true if at least one case is false' do
+      expect(array.my_all? { |m| m > 1 }).not_to eql(true)
     end
 
     it 'when block is given, it returns true if all cases are true in a range' do
@@ -65,24 +65,24 @@ describe Enumerable do
       expect(array_boolean.my_any?).to eql(true)
     end
 
-    it 'returns false if none of the elements is true' do
-      expect(array_false.my_any?).to eql(false)
+    it 'doesn\'t returns true if none of the elements is true' do
+      expect(array_false.my_any?).not_to eql(true)
     end
 
     it 'returns true if the block given ever returns true' do
       expect(array.my_any? { |x| x == 5 }).to eql(true)
     end
 
-    it 'returns false if the block given never returns true' do
-      expect(range.my_any? { |x| x == 8 }).to eql(false)
+    it 'doesn\'t returns true if the block given never returns true' do
+      expect(range.my_any? { |x| x == 8 }).not_to eql(true)
     end
 
     it 'returns true if pattern === element is true for an element' do
       expect(array_boolean.my_any?(nil)).to eql(true)
     end
 
-    it 'returns false if pattern === element is false for all elements' do
-      expect(array_false.my_any?(Integer)).to eql(false)
+    it 'doesn\'t returns true if pattern === element is false for all elements' do
+      expect(array_false.my_any?(Integer)).not_to eql(true)
     end
   end
 
@@ -91,24 +91,24 @@ describe Enumerable do
       expect(array_false.my_none?).to eql(true)
     end
 
-    it 'returns false if all the elements are true' do
-      expect(array.my_none?).to eql(false)
+    it 'doesn\'t returns true if all the elements are true' do
+      expect(array.my_none?).not_to eql(true)
     end
 
     it 'returns true if the block given never returns true' do
       expect(range.my_none? { |x| x > 10 }).to eql(true)
     end
 
-    it 'returns false if the block given ever returns true' do
-      expect(array.my_none? { |x| x == 3 }).to eql(false)
+    it 'doesn\'t returns true if the block given ever returns true' do
+      expect(array.my_none? { |x| x == 3 }).not_to eql(true)
     end
 
     it 'returns true if pattern === element is false for all elements' do
       expect(array.my_none?(Float)).to eql(true)
     end
 
-    it 'returns false if pattern === element is true for an element' do
-      expect(array_boolean.my_none?(nil)).to eql(false)
+    it 'doesn\'t returns true if pattern === element is true for an element' do
+      expect(array_boolean.my_none?(nil)).not_to eql(true)
     end
   end
 
@@ -118,7 +118,14 @@ describe Enumerable do
     end
 
     it 'returns of characters of a string given like argument' do
+      class String
+        include Enumerable
+      end
       expect(string.my_count('n')).to eql(1)
+    end
+
+    it 'returns an Integer equal to number of true cases when block is given' do
+      expect(array.my_count(&:odd?)).to eql(3)
     end
   end
 
