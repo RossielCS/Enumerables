@@ -33,6 +33,12 @@ Also, as additional features:
 - multiply_els method to test my_inject,
 - Changed my_map method to take either a proc or a block.
 
+### Test cases
+
+To execute the test perform the following command in your terminal.
+
+`rspec spec/main_spec.rb -fdoc #it will provide you well-organized output on your terminal`
+
 ## Getting Started
 ### Prerequisites
 
