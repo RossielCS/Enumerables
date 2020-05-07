@@ -7,6 +7,7 @@ describe Enumerable do
   let(:range) { (1..6) }
   let(:string) { 'a string' }
   let(:process) { proc { |n| n + 2 } }
+  let(:array_string) { [ 'a', 's', 't', 'r', 'i', 'n', 'g' ] }
 
   describe '#my_each' do
     it 'returns an enumerator if the block is not given' do
@@ -58,6 +59,18 @@ describe Enumerable do
     it 'when block is given, it returns true if all cases are true in a range' do
       expect(range.my_all? { |m| m.is_a? Integer }).to eql(true)
     end
+
+    it 'return true when an argument is given and all the cases are true' do
+      expect(range.my_all?(Integer)).to eql(true)
+    end
+
+    it 'doesn\'t return true when an argument is given and at least one case is false' do
+      expect(array_boolean.my_all?(true)).not_to eql(true)
+    end
+
+    it 'return true when a RegExp is given and all the cases are true' do
+      expect(array_string.my_all?(/[a-z]/)).to eql(true)
+    end
   end
 
   describe '#my_any?' do
@@ -84,6 +97,18 @@ describe Enumerable do
     it 'doesn\'t returns true if pattern === element is false for all elements' do
       expect(array_false.my_any?(Integer)).not_to eql(true)
     end
+
+    it 'return true when an argument is given and at least one case is true' do
+      expect(range.my_any?(2)).to eql(true)
+    end
+
+    it 'doesn\'t return true when an argument is given and any case is true' do
+      expect(array_boolean.my_any?(Integer)).not_to eql(true)
+    end
+
+    it 'return true when a RegExp and at least one case is true' do
+      expect(array_string.my_any?(/[a-c]/)).to eql(true)
+    end
   end
 
   describe '#my_none?' do
@@ -109,6 +134,18 @@ describe Enumerable do
 
     it 'doesn\'t returns true if pattern === element is true for an element' do
       expect(array_boolean.my_none?(nil)).not_to eql(true)
+    end
+
+    it 'return true when an argument is given and none case is true' do
+      expect(range.my_none?(7)).to eql(true)
+    end
+
+    it 'doesn\'t return true when an argument is given and at least one case is true' do
+      expect(array_boolean.my_none?(true)).not_to eql(true)
+    end
+
+    it 'return true when a RegExp is given and none case is true' do
+      expect(array_string.my_none?(/[1-9]/)).to eql(true)
     end
   end
 
